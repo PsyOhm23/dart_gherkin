@@ -7,9 +7,7 @@ import './messages.dart';
 class ProgressReporter extends StdoutReporter {
   @override
   Future<void> onScenarioStarted(StartedMessage message) async {
-    printMessageLine(
-        'Running scenario: ${_getNameAndContext(message.name, message.context)}',
-        StdoutReporter.WARN_COLOR);
+    printMessageLine('Running scenario: ${_getNameAndContext(message.name, message.context)}', StdoutReporter.WARN_COLOR);
   }
 
   @override
@@ -39,11 +37,9 @@ class ProgressReporter extends StdoutReporter {
         (attachment) {
           var attachment2 = attachment;
           printMessageLine(
-            [
-              '    ',
-              'Attachment',
-              "(${attachment2.mimeType})${attachment.mimeType == 'text/plain' ? ': ${attachment.data}' : ''}"
-            ].join((' ')).trimRight(),
+            ['    ', 'Attachment', "(${attachment2.mimeType})${attachment.mimeType == 'text/plain' ? ': ${attachment.data}' : ''}"]
+                .join((' '))
+                .trimRight(),
             StdoutReporter.RESET_COLOR,
           );
         },
@@ -57,8 +53,7 @@ class ProgressReporter extends StdoutReporter {
   }
 
   String _getReasonMessage(StepResult stepResult) {
-    if (stepResult.resultReason != null &&
-        stepResult.resultReason!.isNotEmpty) {
+    if (stepResult.resultReason != null && stepResult.resultReason!.isNotEmpty) {
       return '\n      ${stepResult.resultReason}';
     } else {
       return '';
@@ -84,13 +79,13 @@ class ProgressReporter extends StdoutReporter {
   String _getStatePrefixIcon(StepExecutionResult result) {
     switch (result) {
       case StepExecutionResult.pass:
-        return '√';
+        return '🟢';
       case StepExecutionResult.error:
       case StepExecutionResult.fail:
       case StepExecutionResult.timeout:
-        return '×';
+        return '🔴';
       case StepExecutionResult.skipped:
-        return '-';
+        return '🟡';
     }
   }
 
